@@ -4,7 +4,7 @@ var args = require('commander')
   .version('0.0.1')
   .option('-i, --instance_target [target]', 'Instance count target', 'sensu.aws.autoscale.lmm-prod.instance_count')
   .option('-q, --queue_target [target]', 'Message queue target', 'sensu.prod.rabbitmq.nva-a-rabbitmq-p01.queues.SwaptionValuationQueueRequestQueue.messages')
-  .option('-a, --queue_messages_avg [number]', 'Average messages queued over time period', 5, parseInt)
+  .option('-a, --queued_message_avg [number]', 'Average messages queued over time period', 5, parseInt)
   .option('-t, --time_period [time period]', 'Message queue time period to average','-5min')
   .option('-g, --graphite_hostname [hostname]', 'Graphite server hostname', 'stats')
   .option('-p, --graphite_port [port]', 'Graphite server port', 80, parseInt)
@@ -14,7 +14,7 @@ var args = require('commander')
 var config = {
   instancesUrl : '/render?format=json&target=' + args.instance_target + '&from=-1min',
   messagesUrl : '/render?format=json&target=' + args.queue_target + '&from=' + args.time_period,
-  threshold : args.queue_messages_avg,
+  threshold : args.queued_message_avg,
   baseline_instances : args.baseline_instances
 };
 
